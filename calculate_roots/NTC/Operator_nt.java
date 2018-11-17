@@ -3,12 +3,13 @@ import ELEMENTS.Var_name;
 
 public class Operator_nt implements Non_terminal_combinator<String>{
 	private static String operators = "*/+-^";
+
 	@Override
-	public int isExpr(String expr) {
+	public boolean isExpr(String expr) {
 		char ch = expr.charAt(0);
 		if(operators.indexOf(ch) == -1)
-			return -1;
-		return 1;
+			return false;
+		return true;
 	}
 
 	@Override

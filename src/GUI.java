@@ -101,10 +101,9 @@ public class GUI extends JPanel
         java.net.URL imgURL = GUI.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
         }
+		System.err.println("Couldn't find file: " + path);
+		return null;
     }
  
     //Create and set up a colored label.

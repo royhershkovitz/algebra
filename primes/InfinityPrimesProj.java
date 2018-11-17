@@ -46,7 +46,7 @@ public class InfinityPrimesProj
 	private static BigInteger poolSizeBigInteger = BigInteger.valueOf(poolSize);
 	//upper bound of scanned big Integers
 	private static BigInteger ourUpperBound = poolSizeBigInteger.add(BigInteger.ZERO);
-	private static BigInteger sqrtUpperBound = ourUpperBound.sqrt();
+	//private static BigInteger sqrtUpperBound = ourUpperBound.sqrt();
 	//lower bound of scanned big Integers
 	private static BigInteger ourLowerBound = BigInteger.valueOf(0);
 	private static long time = 0;//start time
@@ -101,7 +101,7 @@ public class InfinityPrimesProj
 		currentBigInteger = primesPool.removeLast();
 		ourLowerBound = currentBigInteger;
 		ourUpperBound = ourLowerBound.add(poolSizeBigInteger);
-		sqrtUpperBound = ourUpperBound.sqrt();
+		//sqrtUpperBound = ourUpperBound.sqrt();
 		if(verbose) {
 			float div = primesPool.size()/ourLowerBound.floatValue();
 			System.out.println("primes count : " + primesPool.size() + "/" + ourLowerBound.divide(poolSizeBigInteger) +
@@ -129,14 +129,14 @@ public class InfinityPrimesProj
 			
 			while(currentIndex < poolSize) {
 				if(numbersPool[currentIndex])	isPrime(currentBigInteger);
-				currentBigInteger = currentBigInteger.add(BigInteger.TWO);
+				currentBigInteger = currentBigInteger.add(new BigInteger("2"));
 				currentIndex = currentIndex + 2;
 			}			
 			
 			currentIndex = 1;
 			ourUpperBound = ourUpperBound.add(poolSizeBigInteger);
 			ourLowerBound = ourLowerBound.add(poolSizeBigInteger);
-			sqrtUpperBound = ourUpperBound.sqrt();
+			//sqrtUpperBound = ourUpperBound.sqrt();
 			if(verbose) {
 				long temp = System.nanoTime();
 				float div = primesPool.size()/ourLowerBound.floatValue();
@@ -266,7 +266,7 @@ public class InfinityPrimesProj
 		while(loop) 
 		{
 			prime = iter.next();			
-			if(primeIndex > sqrtIndex && sqrtUpperBound.compareTo(prime) < 0) 
+			if(primeIndex > sqrtIndex)// && sqrtUpperBound.compareTo(prime) < 0) compilation problems with sqrt cause me comment it out 
 			{
 				//System.out.println(sqrtUpperBound + " " + prime);
 				sqrtIndex = primeIndex-1;

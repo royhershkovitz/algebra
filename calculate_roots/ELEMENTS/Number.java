@@ -25,7 +25,7 @@ public class Number extends Element<BigDecimal>{
 	
 	@Override
 	public String toString() {
-		if(constant_name == null) super.toString();
+		if(constant_name == null) return super.toString();
 		return "<" + TAG2 + " " + constant_name + ">";
 	}
 }

@@ -25,12 +25,18 @@ public class Constant_nt implements Non_terminal_combinator<BigDecimal>{
     }
     
 	private int index = -1;
+	private boolean sign;
 	
 	@Override
-	public int isExpr(String expr) {
+	public boolean isExpr(String expr) {
 		index = 0;
+		sign = true;
 		boolean stop = false;
-		char ch;
+		char ch = expr.charAt(index);
+		if(ch == '-') {
+			sign = false;
+			index ++;
+		}
 		while(!stop & index < expr.length()) {
 			ch = expr.charAt(index);
 			if((ch >= 'a' & ch <= 'z') || (ch >= 'A' & ch <= 'Z'))
@@ -38,15 +44,18 @@ public class Constant_nt implements Non_terminal_combinator<BigDecimal>{
 			else 
 				stop = true;
 		}			
-		return index;
+		return index>0;
 	}
 
 	@Override
 	public Pair<BigDecimal, String> getElemnt(String expr) {
-			isExpr(expr);
-			if(index == 0)	return null;
-			String con = expr.substring(0, index).toUpperCase();
-			if(!Constants.containsKey(con)) return null;
-			return new Pair(new Number(con, Constants.get(con)), expr.substring(index));
+			if(!isExpr(expr))	return null;
+			int startIndex = 0;
+			if(!sign) startIndex++;//the symbol does not contain '-'
+			String con = expr.substring(startIndex, index).toUpperCase();
+			BigDecimal constant = Constants.get(con);
+			if(constant==null) return null;
+			if(!sign) constant = constant.multiply(new BigDecimal("-1"));
+			return new Pair(new Number(con, constant), expr.substring(index));
 	}
 }

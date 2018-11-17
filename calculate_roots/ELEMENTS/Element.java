@@ -1,7 +1,5 @@
 package ELEMENTS;
 
-import java.math.BigDecimal;
-
 public class Element<T> {
 	
 	protected String TAG = "ELE";
